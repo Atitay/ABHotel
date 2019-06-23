@@ -1,0 +1,19 @@
+﻿@model ABHotel.Models.ViewModel.BookRoomViewModel
+@{
+    ViewData["Title"] = "AppointmentConfirmation";
+}
+
+
+<br /><br />
+      <h2 class="text-info">Booking Confirmation</h2>
+
+<div class="form-text">
+    Your booking has been submitted. Please feel free to contact any questions.
+</div>
+<br />
+
+<partial name="~/Views/Shared/_AppointmentCustomerDetails.cshtml" model="Model.Appointment" />
+<partial name="~/Views/Shared/_AppointmentRoomDetails.cshtml" model="Model.Room" />
+
+@*<a asp-area="Customer" asp-controller="Home" asp-action="Room" class="btn btn-success">Back to Booking</a>*@
+@*<a asp-area="Customer" asp-controller="BookRoom" asp-action="Index" class="btn btn-success">Edit Booking</a>*@

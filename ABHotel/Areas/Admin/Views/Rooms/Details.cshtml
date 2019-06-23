@@ -1,0 +1,70 @@
+﻿@model ABHotel.Models.ViewModel.RoomsViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<br />
+
+<h2 class="text-info">Room Detail</h2>
+
+<div class="p-4 border rounded row">
+    <input hidden asp-for="Rooms.ID" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="col-8">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Rooms.Name"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Rooms.Name" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Rooms.Price"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Rooms.Price" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="RoomTypes"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Rooms.RoomTypes.Name" readonly class="form-control" />
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Rooms.Location"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Rooms.Location" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Rooms.Available"></label>
+            </div>
+            <div class="col-8">
+                @*howto use checkbox*@
+                <input type="checkbox" disabled class="form-control" asp-for="Rooms.Available" />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-1">
+
+    </div>
+    <div class="col-3">
+        <img src="@Model.Rooms.Image" width="100%" style="border-radius:5px; border:1px solid #bbb9b9;" />
+    </div>
+    <br />
+    <div class="form-group">
+        <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.Rooms.ID">Edit</a>
+        <a asp-action="Index" class="btn btn-success">Back to List</a>
+    </div>
+</div>
+

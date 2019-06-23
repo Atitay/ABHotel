@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Http
+@using ABHotel.Extension
+@using ABHotel.Utility
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color:pink;">
+    <a class="navbar-brand" asp-area="Customer" asp-controller="Home" asp-action="Index"> <i class="fas fa-hotel"></i>AB Hotel</a>
+    <div class="collapse navbar-collapse">
+
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item"> <a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="nav-item"><a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Room">Room</a></li>
+
+            @*shoppingCart  add + remove from cart*@
+
+            @if (HttpContextAccessor.HttpContext.Session.Get<List<int>>("ssBookRoom") == null || HttpContextAccessor.HttpContext.Session.Get<List<int>>("ssBookRoom").Count == 0)
+            {
+                <li class="nav-item"><a class="nav-link" asp-area="Customer" asp-controller="BookRoom" asp-action="Index">Booking</a></li>
+            }
+            else
+            {
+                <li style="color:white">
+                    <a asp-area="Customer" asp-controller="BookRoom" asp-action="Index" class="nav-link">
+                        <i class="fas fa-bell">Booking</i> &nbsp;
+                        @{
+                            var count = HttpContextAccessor.HttpContext.Session.Get<List<int>>("ssBookRoom").Count;
+                        }
+                        (@count)
+                    </a>
+                </li>
+            }
+
+            <li class="nav-item"><a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Contact">Contact</a></li>
+
+
+            @if (User.IsInRole(SD.SuperAdminEndUser))
+            {
+
+                <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="RoomTypes" asp-action="Index">Room Types</a></li>
+                <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="Rooms" asp-action="Index">RoomForAdmin</a></li>
+                <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="AdminUser" asp-action="Index">Admin User</a></li>
+                <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="Appointment" asp-action="Index">Appointment</a></li>
+
+            }
+
+
+
+        </ul>
+    </div>
+    <div>
+        <partial name="_LoginPartial" />
+    </div>
+</nav>

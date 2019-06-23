@@ -1,0 +1,101 @@
+﻿@model ABHotel.Models.Rooms
+@using ABHotel.Extension  @*use sesioon*@
+@using Microsoft.AspNetCore.Http
+
+@inject IHttpContextAccessor  HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<br />
+
+<h2 class="text-info">Room Detail</h2>
+
+<form method="post">
+    <div class="p-4 border rounded row">
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Name"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Name" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Location"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Location" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Price"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Price" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="RoomTypes"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="RoomTypes.Name" readonly class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                </div>
+                <div class="col-8">
+                    @*<div class="form-group-row">*@
+                        @*check and remove*@
+                        @{
+                            bool isBooked = false;
+                            List<int> lstBookRoom = HttpContextAccessor.HttpContext.Session.Get<List<int>>("ssBookRoom");
+                            if (lstBookRoom != null && lstBookRoom.Contains(Model.ID))
+                            {
+                                isBooked = true;
+                            }
+                        }
+
+                        @if (isBooked)
+                        {
+                            @*<div style="padding-left:60px;">
+                                <a><button type="submit" value="Add to Booking" asp-route-id="@Model.ID" class="btn btn-primary">Add To Booking</button> &nbsp;</a>*@
+                                <button type="submit" value="Remove from Booking" asp-action="remove" asp-route-id="@Model.ID" class="btn btn-danger form-control">Remove from Booking</button> @*remove*@
+                            @*</div>*@
+                        }
+                        else
+                        {
+                            <button type="submit" value="Add to Booking" asp-route-id="@Model.ID" class="btn btn-primary form-control">Add To Booking</button>
+                        }
+
+                    @*</div>*@
+                </div>
+            </div>
+        </div>
+
+        <div class="col-1">
+        </div>
+        <div class="col-3 text-center">
+            <img src="@Model.Image" width="100%" style="border-radius:5px; border:1px solid #bbb9b9;" />
+            <br /><br />
+            @if (Model.Available)
+            {
+                <img src="~/images/available.png" width="70%" />
+            }
+        </div>
+        <br />
+        <div class="form-group">
+            <input hidden asp-for="ID" />
+            <a asp-action="Room" class="btn btn-success">Back to List</a>
+        </div>
+    </div>
+</form>
+
+

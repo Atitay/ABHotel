@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ABHotel.Models.Rooms>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br /> <br />
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Room List</h2>
+    </div>
+    <div class="col-6  text-right">
+        <a asp-action="Create" class="btn btn-info"> <i class="fas fa-plus"></i> &nbsp; New Room </a>
+    </div>
+</div>
+
+<br /> <br />
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(m => m.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Available)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.RoomTypes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Location)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.Name)
+                </td>
+                <td>
+                    @String.Format(new System.Globalization.CultureInfo("th-th"), "{0:c0}", item.Price)  @*@Html.DisplayFor(m => item.Price)*@  @*currency thai: System.Globalization.CultureInfo("th-th")*@   @*String.Format("{0:c0}", item.Price)*@
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Available)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.RoomTypes.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Location)
+                </td>
+                <td>
+                    <partial name="_TableButtonPartial" model="item.ID" />
+                </td>
+            </tr>
+        }
+    </table>
+</div>

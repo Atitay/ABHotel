@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Http
+@using ABHotel.Extension
+@using ABHotel.Utility
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] ABHotel</title>
+    <script src="https://kit.fontawesome.com/5309500501.js"></script>  @*add icon*@
+
+    <partial name="_CSSPartial" />
+</head>
+<body>
+
+    <partial name="_NavbarPartial" />
+    <partial name="_CookieConsentPartial" />
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2019 - ABHotel</p>
+        </footer>
+    </div>
+    <partial name="_JSPartial" />
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

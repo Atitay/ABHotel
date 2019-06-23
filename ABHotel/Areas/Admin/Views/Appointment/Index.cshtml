@@ -1,0 +1,151 @@
+﻿@model ABHotel.Models.ViewModel.AppointmentViewModel
+
+<form method="get">
+    <br /><br />
+    <h2 class="text-info">Appointment List</h2>
+    <br />
+
+
+    <div style="height:150px; background-color:aliceblue" class="container">
+        @*We will ass search criterria*@
+
+        <div class="col-12">
+            <div class="row" style="padding-top:10px">
+                <div class="col-2">
+                    Customer Name
+                </div>
+                <div class="col-3">
+                    @Html.Editor("searchName", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-2">
+                </div>
+
+                <div class="col-2">
+                    Email
+                </div>
+                <div class="col-3">
+                    @Html.Editor("searchEmail", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="row" style="padding-top:10px">
+                <div class="col-2">
+                    Phone Number
+                </div>
+                <div class="col-3">
+                    @Html.Editor("searchPhone", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-2">
+                </div>
+
+                <div class="col-2">
+                    Appointment Date
+                </div>
+                <div class="col-3">
+                    @Html.Editor("searchDate", new { htmlAttributes = new { @class = "form-control", @id = "datepicker" } })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="row" style="padding-top:10px">
+                <div class="col-2"></div>
+                <div class="col-3"></div>
+                <div class="col-2"></div>
+                <div class="col-2"></div>
+                <div class="col-3">
+                    <button type="submit" name="submit" value="Search" class="btn btn-primary form-control">
+                        <i class="fas fa-search"></i>Search
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <br /><br />
+
+    <div>
+        <table class="table table-striped border">
+            <tr class="table-info">
+                <th>
+                  @*  @Html.DisplayNameFor(m => m.Appointments.FirstOrDefault().Reception.Name)*@
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Appointments.FirstOrDefault().AppointmentDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Appointments.FirstOrDefault().CustomerName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Appointments.FirstOrDefault().CustomerPhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Appointments.FirstOrDefault().CustomerEmail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Appointments.FirstOrDefault().isConfirmed)
+                </th>
+                <th> </th>
+                <th> </th>
+            </tr>
+            @foreach (var item in Model.Appointments)
+            {
+                <tr>
+                    <td>
+                        @*@Html.DisplayFor(m => item.Reception.Name)*@
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.AppointmentDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.CustomerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.CustomerPhone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.CustomerEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.isConfirmed)
+                    </td>
+                    <td>
+                        <partial name="_TableButtonPartial" model="item.ID" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+         page-class="btn border" page-class-normal="btn btn-default active"
+         page-class-selected="btn btn-primary active" class="btn-group m-1">
+
+    </div>
+
+</form>
+
+@section Scripts {
+    <script>
+
+    //$('.timepicker').timepicker({
+    //    timeFormat: 'h:mm p',
+    //    interval: 30,
+    //    minTime: '10',
+    //    maxTime: '3:00pm',
+    //    startTime: '10:00',
+    //    dynamic: true,
+    //    dropdown: true,
+    //    scrollbar: true
+    //});
+
+    $(function () {
+        $("#datepicker").datepicker({
+            minDate: +1, maxDate: "+3M"   //เร็วสุด +1 ช้าสุด +3 เดือน
+        });
+    });
+    </script>
+}

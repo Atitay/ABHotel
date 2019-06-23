@@ -1,0 +1,135 @@
+﻿@model ABHotel.Models.ViewModel.BookRoomViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<form method="post">
+    <br /><br />
+    <h2 class="text-info">Your Booking</h2>
+    <br />
+    @*shopping cart detail*@
+
+    @if (Model.Room.Count == 0)
+    {
+        <div class="col-4">No room added to Booking...</div>
+    }
+    else
+    {
+        <div class="container border border-secondary rounded" style="padding:15px;">
+            <div class="row">
+
+                <div class="col-8" style="border-right:1px solid #bbb9b9">
+                    <table class="table table-striped" width="100%">
+                        <tr class="table-info">
+                            <th style="text-align:center; width:20%"></th>
+                            <th style="text-align:center;">
+                                <label asp-for="@Model.Room.FirstOrDefault().Name"></label>
+                            </th>
+                            <th style="text-align:center;">
+                                <label asp-for="@Model.Room.FirstOrDefault().Price"></label>
+                            </th>
+                            <th style="text-align:center;">
+                                <label asp-for="@Model.Room.FirstOrDefault().Location"></label>
+                            </th>
+                            <th style="text-align:center;">
+                                <label asp-for="@Model.Room.FirstOrDefault().RoomTypes.Name"></label>
+                            </th>
+                            <th style="text-align:center;">
+                        </tr>
+                        @foreach (var item in Model.Room)
+                        {
+                            <tr style="padding:50px;">
+                                <td>
+                                    <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.ID">
+                                        <img src="@item.Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9;" />
+                                    </a>
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(c => item.Name)
+                                </td>
+                                <td style="text-align:center">
+                                    @String.Format(new System.Globalization.CultureInfo("th-th"), "{0:c0}", item.Price)
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(c => item.Location)
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(c => item.RoomTypes.Name)
+                                </td>
+                                <td style="text-align:center">
+                                    <button type="submit" class="btn btn-danger" asp-action="remove" asp-route-id="@item.ID">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+
+                <div class="col-4" style="padding-left:30px;">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Name : </label>
+                        </div>
+                        <div class="col-12">
+                            <input asp-for="@Model.Appointment.CustomerName" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Phone Number : </label>
+                        </div>
+                        <div class="col-12">
+                            <input asp-for="@Model.Appointment.CustomerPhone" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Email : </label>
+                        </div>
+                        <div class="col-12">
+                            <input asp-for="@Model.Appointment.CustomerEmail" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Appointment Date : </label>
+                        </div>
+                        <div class="col-12">
+                            <input asp-for="@Model.Appointment.AppointmentDate" value="" type="text" id="datepicker" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Appointment Time : </label>
+                        </div>
+                        <div class="col-12">
+                            <input asp-for="@Model.Appointment.AppointmentTime" value="" type="text" class="timepicker form-control" />
+                        </div>
+                        <br /><br />
+                        <div class="col-12">
+                            <button type="submit" id="btnPlaceOrder" class="btn btn-success">Booking</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</form>
+
+@*date+time picker  from WEB*@
+
+@section Scripts {
+    <script>
+
+        $('.timepicker').timepicker({
+            timeFormat: 'h:mm p',
+            interval: 30,
+            minTime: '10',
+            maxTime: '3:00pm',
+            startTime: '10:00',
+            dynamic: true,
+            dropdown: true,
+            scrollbar: true
+        });
+
+        $(function () {
+            $("#datepicker").datepicker({
+                minDate: +1, maxDate: "+3M"   //เร็วสุด +1 ช้าสุด +3 เดือน
+            });
+        });
+    </script>
+}
+

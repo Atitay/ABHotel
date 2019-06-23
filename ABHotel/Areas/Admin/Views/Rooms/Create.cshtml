@@ -1,0 +1,81 @@
+﻿@model ABHotel.Models.ViewModel.RoomsViewModel
+@using ABHotel.Extension
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<br />
+
+<h2 class="text-info">Create Room </h2>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="p-4 border rounded">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Rooms.Name"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Rooms.Name" class="form-control" />
+            </div>
+            <span asp-validation-for="Rooms.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Rooms.Price"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Rooms.Price" class="form-control" />
+            </div>
+            <span asp-validation-for="Rooms.Price" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Rooms.Image"></label>
+            </div>
+            <div class="col-5">
+                @*use upload goto controller*@
+                <input type="file" name="files" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="RoomTypes"></label>
+            </div>
+            <div class="col-5">
+                @*dropdown with real detail*@
+               
+                <select asp-for="@Model.Rooms.RoomTypeId" asp-items="Model.RoomTypes.ToSelectListItem(Model.Rooms.RoomTypeId)" class="form-control"></select> 
+            </div>
+        </div>
+    
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Rooms.Location"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Rooms.Location" class="form-control" />
+            </div>
+            <span asp-validation-for="Rooms.Location" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Rooms.Available"></label>
+            </div>
+            <div class="col-5">
+                @*howto use checkbox*@
+                <input type="checkbox" asp-for="Rooms.Available" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Create" />
+            <a asp-action="Index" class="btn btn-success">Back to List</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
